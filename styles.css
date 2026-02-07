@@ -1,0 +1,164 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  padding: 1rem;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Full width stage so card can slide off screen */
+.stage {
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+/* Card */
+.card {
+  max-width: 400px;
+  margin: 0 auto;
+
+  background: white;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  padding: 1.5rem;
+
+  transition: transform 300ms ease, opacity 300ms ease;
+  will-change: transform, opacity;
+
+  user-select: none;
+}
+
+.card-text {
+  margin: 0;
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Footer */
+.footer {
+  padding: 1rem;
+}
+
+.content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+
+  border: none;
+  border-radius: 8px;
+  background-color: #1e88e5;
+  color: white;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.submit-btn:hover {
+  background-color: #1565c0;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Swipe animation states */
+.card.dragging {
+  transition: none;
+}
+
+.card.exit-left {
+  transform: translateX(-120vw);
+  opacity: 0;
+}
+
+.card.enter-right {
+  transform: translateX(120vw);
+  opacity: 0;
+}
+
+.card.enter-center {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Submit mode UI */
+.hidden {
+  display: none;
+}
+
+.composer {
+  user-select: auto;
+}
+
+.composer-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.composer-input {
+  width: 100%;
+  resize: none;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #d0d0d0;
+  font: inherit;
+  outline: none;
+}
+
+.composer-input:focus {
+  border-color: #1e88e5;
+}
+
+.composer-meta {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* In submit mode, keep nice text selection inside textarea */
+.card.submit-mode {
+  user-select: auto;
+}

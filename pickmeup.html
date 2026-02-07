@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pick Me Up</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="header">
+    <h1>💙 Pick Me Up</h1>
+  </header>
+
+  <main class="main">
+    <div class="stage" id="stage">
+      <div class="card" id="card">
+        <!-- VIEW MODE -->
+        <p class="card-text" id="messageText">You are doing great today 🌟</p>
+
+        <!-- SUBMIT MODE (hidden by default) -->
+        <div class="composer hidden" id="composer">
+          <label class="composer-label" for="messageInput">Write your Pick Me Up:</label>
+          <textarea
+            id="messageInput"
+            class="composer-input"
+            rows="4"
+            maxlength="200"
+            placeholder="Type something kind… (max 200 characters)"
+          ></textarea>
+          <div class="composer-meta">
+            <span id="charCount">0/200</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="content">
+      <button class="submit-btn" id="submitBtn" type="button">
+        Submit Pick Me Up
+      </button>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
