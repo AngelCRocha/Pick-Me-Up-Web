@@ -7,9 +7,14 @@ A swipeable motivational message card app. Swipe through uplifting messages or s
 - Swipe left to see a random motivational message
 - Submit your own pick-me-ups (up to 200 characters)
 - Messages are shared — everyone sees what others submit
-- Basic profanity filter to keep things positive
+- Profanity and negativity filter to keep things positive
+- Rate limited to 1 message per person per day
 - Smooth card animations
 - Works on both mobile (touch) and desktop (mouse)
+
+## Live Site
+
+Visit the app at: https://pick-me-up-khls.onrender.com
 
 ## Local Setup
 
@@ -26,9 +31,9 @@ A swipeable motivational message card app. Swipe through uplifting messages or s
    SUPABASE_KEY=your-anon-key
    ```
 
-3. Start the server:
+3. Start the dev server:
    ```
-   npm start
+   npm run dev
    ```
 
 4. Open http://localhost:3000 in your browser.
@@ -38,3 +43,4 @@ A swipeable motivational message card app. Swipe through uplifting messages or s
 - HTML, CSS, JavaScript (frontend)
 - Node.js + Express (backend)
 - Supabase (PostgreSQL database)
+- Render (hosting)
