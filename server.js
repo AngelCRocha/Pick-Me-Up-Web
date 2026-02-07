@@ -102,7 +102,8 @@ app.post("/api/messages", async (req, res) => {
   }
 
   // Rate limit: 1 message per IP per 24 hours
-  const clientIp = req.ip;
+  const forwarded = req.headers["x-forwarded-for"];
+  const clientIp = (forwarded ? forwarded.split(",")[0].trim() : req.ip).replace("::ffff:", "");
   const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
   const { data: recent } = await supabase
