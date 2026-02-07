@@ -1,0 +1,26 @@
+{
+  "name": "pickmeup",
+  "version": "1.0.0",
+  "description": "A simple, swipeable motivational message card app. Swipe through uplifting messages or submit your own to brighten someone's day.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file=.env server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AngelCRocha/Pick-Me-Up-Web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AngelCRocha/Pick-Me-Up-Web/issues"
+  },
+  "homepage": "https://github.com/AngelCRocha/Pick-Me-Up-Web#readme",
+  "dependencies": {
+    "@2toad/profanity": "^3.2.0",
+    "@supabase/supabase-js": "^2.95.3",
+    "express": "^5.2.1"
+  }
+}

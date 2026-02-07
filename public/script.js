@@ -18,31 +18,25 @@ const MAX_CHARS = 200;
 
 let isSubmitMode = false;
 
-// Demo messages (we'll also save user submissions to localStorage)
+// Default messages (shown until the server responds)
 let messages = [
   "You are doing great today 🌟",
-  "Take a breath — you’ve got this 💙",
+  "Take a breath — you've got this 💙",
   "Small progress is still progress.",
   "You matter more than you know.",
   "Be proud of yourself for trying.",
-  "Your effort counts, even when it’s quiet."
+  "Your effort counts, even when it's quiet."
 ];
 
-// Load saved user messages (optional)
-try {
-  const saved = JSON.parse(localStorage.getItem("pickMeUpMessages") || "[]");
-  if (Array.isArray(saved) && saved.length) {
-    messages = [...saved, ...messages];
-  }
-} catch (_) {}
-
-function saveUserMessage(msg) {
-  try {
-    const saved = JSON.parse(localStorage.getItem("pickMeUpMessages") || "[]");
-    saved.unshift(msg);
-    localStorage.setItem("pickMeUpMessages", JSON.stringify(saved.slice(0, 50)));
-  } catch (_) {}
-}
+// Load messages from the server
+fetch("/api/messages")
+  .then((res) => res.json())
+  .then((data) => {
+    if (Array.isArray(data) && data.length) {
+      messages = data;
+    }
+  })
+  .catch(() => {});
 
 function getClientX(e) {
   return e.touches ? e.touches[0].clientX : e.clientX;
@@ -187,21 +181,35 @@ submitBtn.addEventListener("click", () => {
   // Second click: submit message and return to normal
   const text = messageInput.value.trim();
 
-  // If empty, just exit (or you can require a message)
+  // If empty, just exit
   if (!text) {
     exitSubmitMode();
     return;
   }
 
-  // Save locally for now
-  saveUserMessage(text);
+  // Disable button while submitting
+  submitBtn.disabled = true;
 
-  // Add to message pool so it can show up when swiping
-  messages.unshift(text);
-
-  // Return to regular message view
-  exitSubmitMode();
-
-  // Optional: show the newly submitted message immediately
-  messageText.textContent = text;
+  fetch("/api/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  })
+    .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+    .then(({ ok, data }) => {
+      if (!ok) {
+        alert(data.error || "Could not submit message.");
+        return;
+      }
+      // Add to message pool and show it immediately
+      messages.unshift(text);
+      exitSubmitMode();
+      messageText.textContent = text;
+    })
+    .catch(() => {
+      alert("Something went wrong. Please try again.");
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+    });
 });
