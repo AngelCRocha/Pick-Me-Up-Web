@@ -4,6 +4,7 @@ const { createClient } = require("@supabase/supabase-js");
 const { Profanity } = require("@2toad/profanity");
 
 const app = express();
+app.set("trust proxy", true);
 const PORT = process.env.PORT || 3000;
 
 // --- Supabase setup ---
@@ -100,9 +101,24 @@ app.post("/api/messages", async (req, res) => {
     return res.status(400).json({ error: "Message contains inappropriate language." });
   }
 
+  // Rate limit: 1 message per IP per 24 hours
+  const clientIp = req.ip;
+  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+
+  const { data: recent } = await supabase
+    .from("messages")
+    .select("id")
+    .eq("ip", clientIp)
+    .gte("created_at", oneDayAgo)
+    .limit(1);
+
+  if (recent && recent.length > 0) {
+    return res.status(429).json({ error: "You can only submit one message per day. Try again tomorrow!" });
+  }
+
   const { error } = await supabase
     .from("messages")
-    .insert({ text: trimmed });
+    .insert({ text: trimmed, ip: clientIp });
 
   if (error) {
     console.error("Supabase insert error:", error.message);
