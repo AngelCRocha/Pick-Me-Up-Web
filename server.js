@@ -22,15 +22,6 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const profanity = new Profanity();
 // Leet-speak variants of profanity
 profanity.addWords([
-  "nigga", "niggas", "nigg3r", "n1gger", "n1gga", "nigg@",
-  "bullshit", "bullsh1t", "b1tch", "btch", "bi+ch",
-  "stfu", "gtfo", "lmfao", "wtf",
-  "retard", "retarded", "r3tard", "r3tarded", "ret@rd",
-  "fck", "fuk", "fuq", "phuck", "phuk", "f*ck", "fvck",
-  "sh1t", "sht", "s#it", "sh!t",
-  "a$$", "a55", "@ss", "@sshole",
-  "d1ck", "d!ck", "c0ck", "c**k",
-  "wh0re", "wh0r3", "b!tch", "sl*t", "s1ut",
   // Violent / negative language + leet-speak variants
   "kill", "k1ll", "k!ll", "ki11",
   "murder", "murd3r",
